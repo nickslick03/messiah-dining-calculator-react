@@ -297,9 +297,9 @@ function App() {
       customMeals={customMeals}
       setCustomMeals={setCustomMeals}
     >
-    <IfFulfilled state={mealsState}>
-      <Menu /> 
-    </IfFulfilled>  
+      <IfFulfilled state={mealsState}>
+        <Menu />
+      </IfFulfilled>
       <ScreenContainer>
         <WhatsNewModal />
         <header className='bg-messiah-blue rounded-xl border-4 border-white shadow-md w-full mb-4 flex flex-row justify-center items-center gap-4'>
@@ -337,6 +337,9 @@ function App() {
                   <DayEditor order={4} />
                   <Results
                     order={5}
+                    dataIsInvalid={Object.values(userSelectedMeals).some(
+                      (meals) => meals.some((meal: Meal) => meal?.legacy)
+                    )}
                     grandTotal={grandTotal}
                     isUnderBalance={isUnderBalance}
                     difference={difference}

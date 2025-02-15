@@ -130,7 +130,7 @@ const DayEditor = ({ order }: DayEditorProps) => {
   const daysWithErrors = useMemo(
     () =>
       Object.values(userSelectedMealsValue).map((day) =>
-        day.some((m) => !isMeal(m))
+        day.some((m) => !isMeal(m) || m?.legacy)
       ),
     [userSelectedMealsValue]
   );

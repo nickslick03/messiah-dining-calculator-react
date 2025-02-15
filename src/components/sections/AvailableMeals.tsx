@@ -152,7 +152,10 @@ const AvailableMeals = ({ order }: AvailableMealsProps) => {
       <MealContainer
         title='Available Meals'
         addOrRemove='Add'
-        meals={[...meals.value, ...customMeals.value]}
+        meals={[
+          ...meals.value.filter((meal) => !meal?.legacy),
+          ...customMeals.value
+        ]}
         buttonOnClick={addToQueue}
         buttonOnClickDay={addToDay}
         createNotification={(name) => `Added ${name} to meal queue`}

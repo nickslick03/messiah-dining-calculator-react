@@ -91,17 +91,15 @@ const TableRow = ({
 
   return (
     <>
-      <tr ref={tr}>
+      <tr ref={tr} className={!data.name || data?.legacy ? 'bg-red-100' : ''}>
         <TableCell
-          data={
-            data.location ?? <span className='text-messiah-red'>UNKNOWN</span>
-          }
+          data={data.location ?? 'UNKNOWN'}
+          isInvalid={!data?.location || data?.legacy}
           importance={newImportanceIndex(1)}
         />
         <TableCell
-          data={
-            data.name ?? <span className='text-messiah-red'>INVALID MEAL</span>
-          }
+          data={data.name ?? 'INVALID MEAL'}
+          isInvalid={!data.name || data?.legacy}
           isCustom={data.isCustom}
           importance={newImportanceIndex(2)}
           onCustomClick={
@@ -112,6 +110,7 @@ const TableRow = ({
         />
         <TableCell
           data={isNaN(price) ? 'N/A' : formatCurrency(price)}
+          isInvalid={!data?.price || data?.legacy}
           importance={newImportanceIndex(2)}
         />
         {buttonIcon && buttonOnClick ? (

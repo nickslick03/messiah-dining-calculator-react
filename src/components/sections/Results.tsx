@@ -20,6 +20,7 @@ import { userMealsToStackedChart } from '../../lib/mealChartFormat';
 import Divider from '../other/Divider';
 import { TooltipItem } from 'chart.js/auto';
 import tooltip from '../../static/tooltip';
+import { MdErrorOutline } from 'react-icons/md';
 
 interface ResultsProps {
   /**
@@ -46,6 +47,11 @@ interface ResultsProps {
    * The order of this component relative to others.
    */
   order: number;
+
+  /**
+   * Whether the data is invalid.
+   */
+  dataIsInvalid: boolean;
 }
 
 /**
@@ -80,7 +86,8 @@ const Results = ({
   difference,
   grandTotal,
   dayWhenRunOut,
-  order
+  order,
+  dataIsInvalid
 }: ResultsProps) => {
   const balance = useContext(BalanceCtx);
   const weeksOff = useContext(WeeksOffCtx);
@@ -264,6 +271,13 @@ const Results = ({
       setRef={(ref) => tutorialRefs.setValue(ref, 'Results')}
       order={order}
     >
+      {dataIsInvalid && (
+        <div className='bg-red-100 rounded-lg p-4 my-2 text-messiah-red w-full flex flex-row gap-2'>
+          <MdErrorOutline size={25} className='text-messiah-red' />
+          Your meal plan contains meals that no longer exist. Please update your
+          plan to remove these meals.
+        </div>
+      )}
       <div className='text-gray-400 mt-4 mb-1'>
         (Charts are based on the total for 1 week)
       </div>
